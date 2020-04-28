@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudService } from '../crud.service';
 import { Router } from '@angular/router';
+import { CrudService } from '../../services/crud.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   articles: object[] = [];
+  posts: any;
 
   constructor(private crud: CrudService, private router: Router) { }
 
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   getArticles() {
     this.crud.getArticles().subscribe(
       res => {
-        for (let i = 0; i <= 4; i++) {
+        // for (let i = 0; i < 4; i++) {
           res.forEach(doc => {
             this.articles.push({
               title: doc.data().title,
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
               ID: doc.id
             });
           });
-        }
+          this.posts = this.articles;
+        // }
       }
     );
   }
